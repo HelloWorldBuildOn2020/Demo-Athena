@@ -1,9 +1,9 @@
 version: "3.8"
 
 services:
-  nginx-front-end:
-    image: "192479299400.dkr.ecr.ap-southeast-2.amazonaws.com/athena:athena-nginx-front-end"
-    container_name: "athena-nginx-front-end"
+  demo-athena-nginx:
+    image: "192479299400.dkr.ecr.ap-southeast-2.amazonaws.com/athena:demo-athena-nginx"
+    container_name: "demo-athena-nginx"
     restart: always
     ports:
       - 80:80
@@ -14,9 +14,9 @@ services:
     networks:
       - athena
 
-  front-end:
-    image: "192479299400.dkr.ecr.ap-southeast-2.amazonaws.com/athena:app_front_end"
-    container_name: "athena-front-end-app"
+  demo-athena:
+    image: "192479299400.dkr.ecr.ap-southeast-2.amazonaws.com/athena:demo-athena"
+    container_name: "demo-athena"
     volumes:
       - build:/app/build
     environment:
