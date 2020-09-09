@@ -1,0 +1,33 @@
+version: 0.2
+
+env:
+  parameter-store:
+    ENV_FILE: "REACT_APP_API"
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - echo $ENV_FILE > ./front-end/.env
+      - docker build -t $AWS_ECR_REPO:app_front_end -f ./front-end/docker/react/Dockerfile ./front-end
+      - docker build -t $AWS_ECR_REPO:athena-nginx-front-end -f ./front-end/docker/nginx/Dockerfile ./front-end
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $AWS_ECR_REPO:app_front_end
+      - docker push $AWS_ECR_REPO:athena-nginx-front-end
+  
+artifacts:
+  files:
+    - 'appspec.yml'
+    - 'scripts/*'
+    - 'docker-compose.deploy.yml'
+  name: Athena-artifact

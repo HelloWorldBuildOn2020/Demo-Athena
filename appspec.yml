@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+files:
+    - source: docker-compose.deploy.yml
+      destination: /home/centos/
+    
+hooks:
+  ApplicationStart:
+    - location: scripts/run-compose.sh
+      runas: centos

@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  nginx-front-end:
+    image: "192479299400.dkr.ecr.ap-southeast-2.amazonaws.com/athena:athena-nginx-front-end"
+    container_name: "athena-nginx-front-end"
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - build:/var/www/build
+    depends_on:
+      - front-end
+    networks:
+      - athena
+
+  front-end:
+    image: "192479299400.dkr.ecr.ap-southeast-2.amazonaws.com/athena:app_front_end"
+    container_name: "athena-front-end-app"
+    volumes:
+      - build:/app/build
+    environment:
+      - NODE_ENV=development
+    networks:
+      - athena
+
+volumes:
+  build:
+
+networks:
+  athena:
+    driver: bridge
