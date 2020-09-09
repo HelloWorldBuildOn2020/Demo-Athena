@@ -1,0 +1,14 @@
+FROM node:13-alpine
+
+ENV APPLICATION_ROOT /app/
+
+WORKDIR $APPLICATION_ROOT
+
+COPY package.json $APPLICATION_ROOT/
+RUN yarn install
+
+COPY .env $APPLICATION_ROOT/
+COPY src $APPLICATION_ROOT/src
+COPY public $APPLICATION_ROOT/public
+
+RUN yarn build
