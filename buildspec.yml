@@ -29,5 +29,5 @@ artifacts:
   files:
     - 'appspec.yml'
     - 'scripts/*'
-    - 'docker-compose.deploy.yml'
+    - 'docker-compose-demo.deploy.yml'
   name: Demo-Athena-artifact
