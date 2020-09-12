@@ -6,27 +6,27 @@ services:
     container_name: "demo-athena-nginx"
     restart: always
     ports:
-      - 80:80
+      - 8080:80
     volumes:
-      - build:/var/www/build
+      - demo-athena-build:/var/www/demo-athena/build
     depends_on:
-      - front-end
+      - demo-athena
     networks:
-      - athena
+      - demo-athena
 
   demo-athena:
     image: "192479299400.dkr.ecr.ap-southeast-2.amazonaws.com/athena:demo-athena"
     container_name: "demo-athena"
     volumes:
-      - build:/app/build
+      - demo-athena-build:/app/build
     environment:
       - NODE_ENV=development
     networks:
-      - athena
+      - demo-athena
 
 volumes:
-  build:
+  demo-athena-build:
 
 networks:
-  athena:
+  demo-athena:
     driver: bridge
