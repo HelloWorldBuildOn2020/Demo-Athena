@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-    - source: docker-compose.deploy.yml
+    - source: docker-compose-demo.deploy.yml
       destination: /home/centos/
     
 hooks:

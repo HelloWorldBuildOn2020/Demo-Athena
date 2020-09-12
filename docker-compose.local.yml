@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  demo-athena:
+    image: "demo-athena:latest"
+    container_name: "demo-athena"
+    restart: always
+    ports:
+      - 3000:3000
+    build:
+      context: ./front-end
+      dockerfile: docker/react/Dockerfile
+    stdin_open: true
+    networks:
+      - athena
+    env_file:
+      - ./front-end/.env
+
+networks:
+  athena:
+    driver: bridge

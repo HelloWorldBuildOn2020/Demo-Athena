@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  demo-athena-nginx:
+    image: "192479299400.dkr.ecr.ap-southeast-2.amazonaws.com/athena:demo-athena-nginx"
+    container_name: "demo-athena-nginx"
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - demo-athena-build:/var/www/demo-athena/build
+    depends_on:
+      - demo-athena
+    networks:
+      - demo-athena
+
+  demo-athena:
+    image: "192479299400.dkr.ecr.ap-southeast-2.amazonaws.com/athena:demo-athena"
+    container_name: "demo-athena"
+    volumes:
+      - demo-athena-build:/app/build
+    environment:
+      - NODE_ENV=development
+    networks:
+      - demo-athena
+
+volumes:
+  demo-athena-build:
+
+networks:
+  demo-athena:
+    driver: bridge
