@@ -4,64 +4,62 @@ import colors from "../../../Config/Color";
 import { CircularProgress } from "@material-ui/core";
 
 const StepThree = (props) => {
-  const { statusCode, loading } = props
-  const [headerMessage, setHeaderMessage] = useState('')
-  const [message, setMessage] = useState('')
-  const [color, setColor] = useState('')
-  const [icon, setIcon] = useState("")
+  const { statusCode, loading } = props;
+  const [headerMessage, setHeaderMessage] = useState("");
+  const [message, setMessage] = useState("");
+  const [color, setColor] = useState("");
+  const [icon, setIcon] = useState("");
 
   useEffect(() => {
-    checkStatus()
-  }, [statusCode])
+    checkStatus();
+  }, [statusCode]);
 
   const checkStatus = () => {
-    let colorText = colors.primary
-    if(statusCode == 200) {
+    let colorText = colors.primary;
+    if (statusCode == 200) {
       setIcon("fa fa-check-circle-o fa-4x");
-      setHeaderMessage("ยืนยันการตรวจสอบเรียบร้อย");
-      setMessage("คุณสามารถเข้าเรียนได้ทันที");
-    } else if(statusCode == 400) {
+      setHeaderMessage("Verification Verification Successful");
+      setMessage("You can join your class.");
+    } else if (statusCode == 400) {
       setIcon("");
-      setHeaderMessage("ไม่สามาตรวจสอบข้อมูลได้")
-      setMessage("กรุณารอเจ้าหน้าที่ตรวจสอบอีกครั้งภายใน 48 ชั่วโมง")
+      setHeaderMessage("Verification Fail");
+      setMessage("An inspection is scheduled to take place within 48 hours.");
       colorText = colors.red;
     } else {
       setIcon("");
-      setHeaderMessage("เกิดข้อผิดพลาด");
-      setMessage("กรุณากรอกใหม่อีกครั้ง");
+      setHeaderMessage("Verification Fail");
+      setMessage("Please enter information again.");
       colorText = colors.red;
     }
-    setColor(colorText)
-  }
+    setColor(colorText);
+  };
 
   return (
     <div className="row d-flex justify-content-center">
       <div className="col-6">
         <br />
-        {loading ?
+        {loading ? (
           <div className="row d-flex justify-content-center">
             <Header className="text-center">
-              กำลังตรวจสอบ ...
-              <br/>
-              <br/>
+              Wait for status confirmation ...
+              <br />
+              <br />
               <CircularProgress />
             </Header>
-          </div> :
+          </div>
+        ) : (
           <>
             <Header color={color} className="text-center">
               {headerMessage}
             </Header>
             <div className="text-center">
-              <Header
-                className={icon}
-                color={color}
-                ></Header>
+              <Header className={icon} color={color}></Header>
             </div>
             <P2 color={color} className="text-center">
               {message}
             </P2>
           </>
-        }
+        )}
         <br />
       </div>
     </div>
