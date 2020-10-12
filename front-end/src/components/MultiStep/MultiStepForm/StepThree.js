@@ -18,7 +18,7 @@ const StepThree = (props) => {
     let colorText = colors.primary;
     if (statusCode == 200) {
       setIcon("fa fa-check-circle-o fa-4x");
-      setHeaderMessage("Verification Verification Successful");
+      setHeaderMessage("Verification Successful");
       setMessage("You can join your class.");
     } else if (statusCode == 400) {
       setIcon("");
