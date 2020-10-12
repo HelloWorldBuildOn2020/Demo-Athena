@@ -16,7 +16,7 @@ const ModalMultiStep = (props) => {
         {buttonLabel}
       </HomeButton>
       <Modal isOpen={modal} toggle={toggle} className={className} size="lg">
-        <ModalHeader toggle={toggle}>สั่งซื้อและชำระเงิน</ModalHeader>
+        <ModalHeader toggle={toggle}>Order and payment process</ModalHeader>
         <ModalBody>
           <Stepper/>
         </ModalBody>
