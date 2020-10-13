@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ["รายละเอียดการซื้อและจัดส่ง", "ชำระเงิน", "แจ้งโอนและรอตรวจสอบ"];
+  return ["Purchase and delivery details", "Payment", "Wait for status confirmation"];
 }
 
 export default function HorizontalNonLinearAlternativeLabelStepper() {
@@ -130,7 +130,7 @@ export default function HorizontalNonLinearAlternativeLabelStepper() {
                       onClick={handleNext}
                       className={classes.button}
                     >
-                      ขั้นตอนถัดไป
+                      Next
                     </Button>
                   </Box>
                 </Box>

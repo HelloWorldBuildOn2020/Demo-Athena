@@ -7,7 +7,7 @@ function MultiStep (props) {
   return(
     <CustomContainer fluid={true}>
       <ModalMultiStep
-      buttonLabel='ทดสอบการโอนเงิน'
+      buttonLabel='Demo Athena'
       />
     </CustomContainer>
   )
