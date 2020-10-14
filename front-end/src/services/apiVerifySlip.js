@@ -1,4 +1,3 @@
-import axios from 'axios';
 import api from '../utils/api'
 
 const APIVerifySlip = {
@@ -8,7 +7,7 @@ const APIVerifySlip = {
       "Accept": "*"
     };
     let response =  api.post(
-      `/upload-slip?amount=${data.money}&date=${data.date}&time=${data.time}`,
+      `/verify-slip?amount=${data.money}&date=${data.date}&time=${data.time}&user_id=1`,
       slip,
       header
     );

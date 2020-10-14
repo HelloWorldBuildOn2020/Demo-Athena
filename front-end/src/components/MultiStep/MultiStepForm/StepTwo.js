@@ -14,27 +14,45 @@ const ButtonStyle = styled(Button)`
 const messageEmptyMoney = "Enter the amount of money";
 const messageEmptyDate = "Enter date";
 const messageEmptyTime = "Enter the transfer time";
+const messageEmptyFile = "Upload file image that is slip.";
 
 const StepTwo = (props) => {
   const { handleSubmit } = props;
   const [invalidMoney, setInvalidMoney] = useState(false);
   const [invalidDate, setInvalidDate] = useState(false);
   const [invalidTime, setInvalidTime] = useState(false);
+  const [invalidFile, setInvalidFile] = useState(false);
   const [messageErrorMoney, setMessageErrorMoney] = useState(false);
   const [messageErrorDate, setMessageErrorDate] = useState(false);
   const [messageErrorTime, setMessageErrorTime] = useState(false);
+  const [messageErrorFile, setMessageErrorFile] = useState(false);
   const [slip, setSlip] = useState("");
-  const [money, setMoney] = useState(null);
+  const [money, setMoney] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [disable, setDisable] = useState(true)
 
   const handleValidationMoney = (value) => {
     if (value === "") {
       setInvalidMoney(true);
       setMessageErrorMoney(messageEmptyMoney);
+      setDisable(true);
     } else {
       setInvalidMoney(false);
       setMoney(value);
+      setDisable(false);
+    }
+  };
+
+  const handleValidationFile = (value) => {
+    if (value === "") {
+      setInvalidFile(true);
+      setMessageErrorFile(messageEmptyFile);
+      setDisable(true);
+    } else {
+      setInvalidFile(false);
+      setSlip(value);
+      setDisable(false);
     }
   };
 
@@ -42,29 +60,40 @@ const StepTwo = (props) => {
     if (value === "") {
       setInvalidDate(true);
       setMessageErrorDate(messageEmptyDate);
+      setDisable(true);
     } else {
       setInvalidDate(false);
       setDate(value.replace(/-/g, ""));
+      setDisable(false);
     }
   };
 
   const handleValidationTime = (value) => {
     if (value === "") {
       setInvalidTime(true);
+      setDisable(true);
       setMessageErrorTime(messageEmptyTime);
     } else {
       setInvalidTime(false);
       setTime(value);
+      setDisable(false);
     }
   };
 
   const onSubmit = async () => {
-    let data = {
-      money: money,
-      date: date,
-      time: time,
-    };
-    handleSubmit(slip, data);
+    handleValidationDate(date)
+    handleValidationMoney(money)
+    handleValidationTime(time)
+    if (!invalidDate && !invalidMoney && !invalidTime && !invalidFile) {
+      let data = {
+        money: money,
+        date: date,
+        time: time,
+      };
+      handleSubmit(slip, data);
+    } else {
+      setDisable(true)
+    }
   };
 
   return (
@@ -118,12 +147,13 @@ const StepTwo = (props) => {
         </FormGroup>
         <FormGroup>
           <Header>Upload Slip</Header>
-          <Input type="file" onChange={(e) => setSlip(e.target.files[0])} />
+          <Input type="file" onChange={(e) => handleValidationFile(e.target.files[0])} />
+          <FormFeedback>{messageErrorFile}</FormFeedback>
           <P2 color={color.description}>
             File size not more than 2MB. File type contain .jpg or .png or .gif
           </P2>
         </FormGroup>
-        <ButtonStyle onClick={onSubmit}>Submit</ButtonStyle>
+        <ButtonStyle onClick={onSubmit} disabled={disable}>Submit</ButtonStyle>
         <br />
       </div>
     </div>
