@@ -61,6 +61,7 @@ export default function HorizontalNonLinearAlternativeLabelStepper() {
     handleFinish();
     try {
       await apiServices.verifySlip(slip, data).then((data) => {
+        console.log(data)
         setResponse(data)
         setLoading(false);
       })
